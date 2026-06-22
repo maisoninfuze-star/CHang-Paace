@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Dark Backgrounds (pixel-extracted from Chand Palace digital menu PDF) ── */
+    --clr-espresso:       #0E0804;
+    --clr-espresso-mid:   #2D1315;
+    --clr-espresso-warm:  #4E3926;
+
+    /* ── Crimson Accent ── */
+    --clr-crimson:        #4C1215;
+    --clr-crimson-light:  #7A2020;
+
+    /* ── Light Backgrounds ── */
+    --clr-parchment:      #EDE3D5;
+    --clr-ivory:          #F4EBDA;
+    --clr-white:          #FEFEFE;
+
+    /* ── Crown Gold ── */
+    --clr-gold:           #C9A84C;
+    --clr-gold-light:     #E8CF82;
+
+    /* ── Text ── */
+    --clr-text-light:     #F5EDE0;
+    --clr-text-muted:     #C4B49A;
+    --clr-text-dark:      #1C0D08;
+    --clr-text-taupe:     #7A6558;
+
+    /* ── Overlay ── */
+    --clr-overlay:        rgba(14, 8, 4, 0.78);
+
+    /* ── Type Scale ── */
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.375rem;
+    --text-2xl:  1.75rem;
+    --text-3xl:  2.5rem;
+    --text-4xl:  3.5rem;
+    --text-5xl:  5rem;
+
+    /* ── Spacing ── */
+    --space-xs:  0.5rem;
+    --space-sm:  1rem;
+    --space-md:  1.5rem;
+    --space-lg:  2.5rem;
+    --space-xl:  4rem;
+    --space-2xl: 6rem;
+    --space-3xl: 9rem;
+
+    --container-max: 1280px;
+    --gutter: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--clr-espresso);
+    color: var(--clr-text-light);
+    font-family: var(--font-lora), Georgia, serif;
+    font-size: var(--text-base);
+    line-height: 1.75;
+  }
+
+  ::selection {
+    background-color: var(--clr-gold);
+    color: var(--clr-espresso);
+  }
+}
+
+@layer components {
+  .container-cp {
+    @apply w-full mx-auto px-6 lg:px-12;
+    max-width: var(--container-max);
+  }
+
+  .section-pad {
+    @apply py-24 lg:py-36;
+  }
+
+  .section-pad-sm {
+    @apply py-16 lg:py-24;
+  }
+
+  /* Gold rule ornament */
+  .gold-rule {
+    @apply flex items-center gap-4;
+  }
+  .gold-rule::before,
+  .gold-rule::after {
+    content: '';
+    @apply flex-1 h-px;
+    background: var(--clr-gold);
+    opacity: 0.4;
+  }
+
+  /* Cinzel all-caps label */
+  .label-caps {
+    font-family: var(--font-cinzel), serif;
+    @apply text-xs tracking-widest uppercase;
+    color: var(--clr-gold);
+  }
+
+  /* Section heading */
+  .heading-display {
+    font-family: var(--font-playfair), serif;
+    @apply text-4xl lg:text-5xl font-bold italic leading-tight;
+  }
+
+  /* Dark section default */
+  .section-dark {
+    background-color: var(--clr-espresso);
+  }
+
+  /* Light / parchment section */
+  .section-light {
+    background-color: var(--clr-parchment);
+    color: var(--clr-text-dark);
+  }
+
+  /* Crimson section (FeatureStrip, badges) */
+  .section-crimson {
+    background-color: var(--clr-crimson);
+    color: var(--clr-text-light);
+    border-top: 1px solid var(--clr-gold);
+    border-bottom: 1px solid var(--clr-gold);
+  }
+}
+
+/* ── Fanned card carousel (SocialCards) ──
+   Cards are absolutely centered (margin:auto) so GSAP owns the transform,
+   while the layout reserves height. Sizes match the JS breakpoints in
+   components/ui/SocialCards.tsx. */
+.fan-layout {
+  position: relative;
+  height: 38rem;
+}
+.fan-card {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20rem;
+  height: 25rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  opacity: 0;                 /* GSAP fades cards in on mount */
+  will-change: transform;
+  background-color: var(--clr-espresso-mid);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+@media (max-width: 1023px) {
+  .fan-layout { height: 34rem; }
+  .fan-card { width: 18rem; height: 22.5rem; }
+}
+@media (max-width: 767px) {
+  .fan-layout { height: 28rem; }
+  .fan-card { width: 15rem; height: 18.75rem; }
+}
+@media (max-width: 639px) {
+  .fan-layout { height: 26rem; }
+  .fan-card { width: 13rem; height: 16.25rem; }
+}
+@media (max-width: 479px) {
+  .fan-layout { height: 22rem; }
+  .fan-card { width: 11rem; height: 13.75rem; }
+}
+
+@layer utilities {
+  .text-gold  { color: var(--clr-gold); }
+  .text-parchment { color: var(--clr-text-light); }
+  .border-gold { border-color: var(--clr-gold); }
+  .bg-espresso { background-color: var(--clr-espresso); }
+  .bg-parchment { background-color: var(--clr-parchment); }
+}
